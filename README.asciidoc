@@ -1,0 +1,60 @@
+Regexplace
+----------
+
+Change of Multiple Files
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some times it is necessary to change an entry in more then one file. For 
+example if I want to change the namespace in my source files and I did not use 
+a full blown IDE I need to change this by hand. With a python script from 
+Activestate Python Cookbok this is easily possible. I made some small changes 
+to get the script even easier to use.
+
+The usage of the script is:
+
+----
+usage: regexplace.py [options] dirname search-regexp replace-string
+
+options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -f FILEREGEX, --files=FILEREGEX
+                        set the regular expression of files to search through.
+                        The  default vaule is: '.*' (All files)
+  -i IGNOREFILEREGEX, --ignorefiles=IGNOREFILEREGEX
+                        set the regualr expression for the files to ignore.
+                        This parameter applies as well to the directory on the
+                        recursive search. The default value is: '\..*' (Ignore
+                        files with leading dot)
+  -r, --recursive       Prse files in subdirectories recursively.
+----
+
+Examples
+~~~~~~~~
+
+A simple example where I want to change the text TEST in all the file in the directory /home/user/test to ERROR. I could call the script as follow:
+
+----
+$ python regexplace.py /home/user/test TEST ERROR
+----
+
+This will change all the files in the directory test but not in the subdirectories for this it would be necessary to add the -r switch.
+
+----
+python regexplace.py -r /home/user/test TEST ERROR
+----
+
+If I only want to change the .cpp and .h files. I would add the following regex for the files.
+
+----
+python regexplace.py -r -f "(.*\.cpp)|(.*\.h)" /home/user/test TEST ERROR
+----
+
+If I want to change all files but not the files in the bin directory I add a regex for this directory. But i will leave the rule for ignoring dot files.
+
+----
+python regexplace.py -r -f "(.*\.cpp)|(.*\.h)" -i "(\..*)|(bin)" /home/user/test TEST ERROR
+----
+
+For a description of the the regex syntax see the python documentation.
+
