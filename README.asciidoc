@@ -1,16 +1,27 @@
 Regexplace
 ----------
 
-Change of Multiple Files
-~~~~~~~~~~~~~~~~~~~~~~~~
+Regexplace is a simple tool to change multiple files within one directory
+structure. The idea is to search for files and replace within all this files
+a given string multiple times.
+On Linux there are multpiple tools that can be used to achieve this but since
+I needed that on Windows as well. I hacked/copied this tool together. I haven't
+used it on Windows for a few years now but it should still work.
 
-Some times it is necessary to change an entry in more then one file. For 
-example if I want to change the namespace in my source files and I did not use 
-a full blown IDE I need to change this by hand. With a python script from 
-Activestate Python Cookbok this is easily possible. I made some small changes 
-to get the script even easier to use.
+The original script was from the 
+http://aspn.activestate.com/ASPN/Cookbook/Python[Activestate Python Cookbok].
+Some times it is necessary to change an entry in more then one file. I made
+some small changes to the original script to get it easier to use.
 
-The usage of the script is:
+Future Ideas
+~~~~~~~~~~~~
+
+A Simple gui which lets you enter the text to search and replace and some
+simple file selection could help to make this tool a little helper without the
+need to learn some fancy shell commands.
+
+Usage of the Script
+~~~~~~~~~~~~~~~~~~~
 
 ----
 usage: regexplace.py [options] dirname search-regexp replace-string
@@ -32,29 +43,34 @@ options:
 Examples
 ~~~~~~~~
 
-A simple example where I want to change the text TEST in all the file in the directory /home/user/test to ERROR. I could call the script as follow:
+A simple example where I want to change the text TEST in all the file in the
+directory /home/user/test to ERROR. I could call the script as follow:
 
 ----
 $ python regexplace.py /home/user/test TEST ERROR
 ----
 
-This will change all the files in the directory test but not in the subdirectories for this it would be necessary to add the -r switch.
+This will change all the files in the directory test but not in the
+subdirectories for this it would be necessary to add the -r switch.
 
 ----
-python regexplace.py -r /home/user/test TEST ERROR
+$ python regexplace.py -r /home/user/test TEST ERROR
 ----
 
-If I only want to change the .cpp and .h files. I would add the following regex for the files.
+If I only want to change the .cpp and .h files. I would add the following regex
+for the files.
 
 ----
-python regexplace.py -r -f "(.*\.cpp)|(.*\.h)" /home/user/test TEST ERROR
+$ python regexplace.py -r -f "(.*\.cpp)|(.*\.h)" /home/user/test TEST ERROR
 ----
 
-If I want to change all files but not the files in the bin directory I add a regex for this directory. But i will leave the rule for ignoring dot files.
+If I want to change all files but not the files in the bin directory I add a
+regex for this directory. But i will leave the rule for ignoring dot files.
 
 ----
-python regexplace.py -r -f "(.*\.cpp)|(.*\.h)" -i "(\..*)|(bin)" /home/user/test TEST ERROR
+$ python regexplace.py -r -f "(.*\.cpp)|(.*\.h)" -i "(\..*)|(bin)" /home/user/test TEST ERROR
 ----
 
-For a description of the the regex syntax see the python documentation.
+For a description of the the regex syntax see the 
+http://docs.python.org/lib/re-syntax.html[python documentation].
 
